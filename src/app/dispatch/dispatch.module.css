@@ -1,0 +1,137 @@
+.headerTitle h2 {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.headerTitle span {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+}
+
+.headerActions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.syncBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.85rem;
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.summaryRow {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.iconCircle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statLabel {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.statValue {
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.toolbar {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.search {
+    position: relative;
+    width: 280px;
+}
+
+.search svg {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+}
+
+.search input {
+    width: 100%;
+    padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.tableRow:hover {
+    background: var(--bg-hover);
+}
+
+.shipId {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.custCell {
+    font-weight: 600;
+}
+
+.locationCell {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+}
+
+.statusBadge {
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.intransit {
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+.loading {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--accent);
+}
+
+.delivered {
+    background: var(--secondary-soft);
+    color: var(--secondary);
+}
+
+.scheduled {
+    background: var(--bg-hover);
+    color: var(--text-dim);
+}
+
+.rowActions {
+    display: flex;
+    justify-content: flex-end;
+}

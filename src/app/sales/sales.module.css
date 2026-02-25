@@ -1,0 +1,174 @@
+.barLeft {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.barRight {
+    display: flex;
+    align-items: center;
+}
+
+.searchWrapper {
+    position: relative;
+    width: 240px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+}
+
+.searchWrapper input {
+    width: 100%;
+    padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.tableControls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.leftControls {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.filterBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.85rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: all 0.2s;
+}
+
+.filterBtn:hover {
+    background: var(--bg-hover);
+    color: var(--text-main);
+}
+
+.rightControls p {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    font-weight: 500;
+}
+
+.thContent {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.tableRow:hover {
+    background: var(--bg-hover);
+}
+
+.idCell {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.custCell {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.specCell {
+    display: flex;
+    flex-direction: column;
+}
+
+.specCell strong {
+    color: var(--text-main);
+    font-size: 0.875rem;
+}
+
+.specCell span {
+    color: var(--text-dim);
+    font-size: 0.75rem;
+}
+
+.qtyCell {
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.valCell {
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+.marginInfo {
+    width: 80px;
+}
+
+.marginInfo span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.marginTrack {
+    height: 4px;
+    background: var(--bg-hover);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.marginBar {
+    height: 100%;
+    background: var(--secondary);
+}
+
+.statusBadge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.quoted {
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+.inprogress {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--accent);
+}
+
+.confirmed {
+    background: var(--secondary-soft);
+    color: var(--secondary);
+}
+
+.inquiry {
+    background: var(--bg-hover);
+    color: var(--text-muted);
+}
+
+.rowActions {
+    display: flex;
+    justify-content: flex-end;
+}

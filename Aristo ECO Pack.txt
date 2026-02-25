@@ -1,0 +1,194 @@
+Aristo ECO Pack
+Project: Lean AI-Enabled ERP for Paper Carry Bag Manufacturing Unit
+
+1. Introduction
+1.1 Purpose
+To implement a simple, AI-enabled, cloud-hosted ERP system integrated with Tally, designed specifically for a mid-scale paper carry bag manufacturing unit (₹25 Cr turnover) to improve:
+Production visibility
+Margin control
+Container planning for exports
+Inventory tracking
+Financial dashboard integration
+
+1.2 Scope
+The ERP system will:
+Replace Excel-based planning
+Integrate with Tally for financial control
+Provide real-time dashboards
+Enable smart container planning
+Reduce wastage and increase machine efficiency
+
+2. System Overview
+2.1 System Type
+Cloud-hosted, web-based ERP
+Tablet-compatible production entry
+Tally integration via API or XML sync
+
+2.2 User Roles
+1.Admin (Dashboard View)
+2.Sales Executive
+3.Production Planner
+4.Store Manager
+5.Production Operator
+6.Dispatch Executive
+7.Finance User
+
+3. Functional Requirements (Module Wise)
+
+3.1 Master Management Module
+Description:
+Central configuration for all static data.
+Key Masters:
+Customer Master
+Vendor Master
+Bag Size Master (Width × Gusset × Height)
+GSM Master
+Handle Type Master
+Printing Specification Master
+Carton Master
+Container Master (20ft / 40ft)
+
+3.2 Sales & Quotation Module
+Description:
+Handles inquiry to order confirmation with auto costing.
+Functionalities:
+Create Inquiry
+Auto Costing Calculator (Paper + Glue + Handle + Wastage)
+Margin Simulation
+Generate Quotation PDF
+Convert Quotation to Sales Order
+
+3.3 Production Planning Module
+Description:
+Machine scheduling and material planning.
+Functionalities:
+Machine Calendar View
+AI-Based Batch Grouping Suggestion
+Production Order Creation
+Material Requirement Planning (MRP)
+Export Priority Flag
+
+3.4 Inventory & Store Module
+Description:
+Track raw materials and finished goods.
+Functionalities:
+GSM-wise Stock Tracking
+Glue & Handle Consumption Tracking
+Low Stock Alerts
+Material Issue to Production
+
+3.5 Production Execution Module
+Description:
+Tablet-based entry for production data.
+Functionalities:
+Start/Stop Production
+Output Entry
+Wastage Entry
+Downtime Reason Capture
+Job Card Closure
+
+3.6 Quality Control Module
+Description:
+Capture QC data for export compliance.
+Functionalities:
+Burst Strength Entry
+Handle Pull Test Entry
+Print Registration Check
+Rejection Tracking
+QC Approval before Dispatch
+
+3.7 Container Planning Module (Export Critical Module)
+Description:
+AI-assisted container space optimization.
+Functionalities:
+Select Order
+Auto Carton Calculation
+Container Type Selection
+Fill % Calculation
+Weight Validation
+Stacking Suggestion
+Export Packing List Generation
+
+3.8 Dispatch & Invoice Module
+Description:
+Shipment processing and finance sync.
+Functionalities:
+Dispatch Note
+Invoice Generation
+Export Packing List
+Tally Sync (Sales Invoice)
+Shipment Status Tracking
+
+3.9 Finance Integration Module (Tally Integration)
+Description:
+Two-way sync for financial control.
+Functionalities:
+Sales Invoice Push to Tally
+Purchase Entry Sync
+GRN Value Sync
+Customer Outstanding Fetch
+Vendor Outstanding Fetch
+
+3.10 AI Dashboard Module
+Description:
+Real-time owner control panel.
+KPIs:
+Today Production vs Plan
+Machine Efficiency %
+Wastage %
+Raw Material Days in Hand
+Order-wise Margin
+Export Container Fill %
+Receivables Summary
+
+4. Non-Functional Requirements
+4.1 Performance
+Response time < 3 seconds
+Support 20 concurrent users
+4.2 Security
+Role-based access
+Data encryption
+Daily cloud backup
+4.3 Hosting
+Cloud VPS (AWS / Azure / DigitalOcean)
+Minimum 8GB RAM server
+4.4 Scalability
+Expandable to 5 machines
+Multi-location ready
+
+5. Integration Requirements
+External Integration:
+Tally ERP
+Email (Quotation & Invoice)
+Excel export capability
+
+6. Implementation Phases
+Phase 1 (0–90 Days)
+Masters
+Sales & Quotation
+Inventory
+Production Entry
+Tally Sync
+Basic Dashboard
+Phase 2 (3–6 Months)
+Container Planning AI
+Advanced Dashboard
+OEE Analytics
+Predictive Wastage Alerts
+
+7. Expected Business Impact
+5–8% Wastage Reduction
+3–5% Margin Improvement
+Better Export Utilization
+Real-Time Financial Visibility
+Reduced Owner Dependency
+
+8. Assumptions
+Existing Tally system operational
+Internet connectivity stable
+Production staff trained for tablet usage
+Data migration from Excel feasible
+
+
+Note:: 
+Is the coating applied on the rolls prior to production and printing _______?

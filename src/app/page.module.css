@@ -1,0 +1,236 @@
+.dashboard {
+  padding: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.kpiCard {
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.kpiHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.kpiIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kpiTrend {
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  background: var(--bg-hover);
+}
+
+.plus {
+  color: var(--secondary);
+}
+
+.minus {
+  color: var(--danger);
+}
+
+.kpiLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  margin-bottom: 0.25rem;
+}
+
+.kpiValue {
+  font-size: 1.75rem;
+  font-weight: 900;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.sparkline {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  opacity: 0.3;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.5rem;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.cardHeader h3 {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.machineGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.machineItem {
+  padding: 1rem;
+  background: var(--bg-hover);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.machineStatus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.machineLabel {
+  font-size: 0.65rem;
+  font-weight: 900;
+  color: var(--primary);
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.statusDot.running {
+  background: var(--secondary);
+  box-shadow: 0 0 8px var(--secondary);
+}
+
+.statusDot.paused {
+  background: var(--accent);
+}
+
+.statusDot.idle {
+  background: var(--text-dim);
+}
+
+.machineProgress {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.chartContainer {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  height: 200px;
+  padding-top: 2rem;
+}
+
+.chartBar {
+  flex: 1;
+  background: linear-gradient(to top, var(--primary), var(--primary-soft));
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  min-width: 4px;
+}
+
+.chartLabel {
+  position: absolute;
+  bottom: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.feedList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.feedItem {
+  padding-left: 1rem;
+  border-left: 2px solid var(--border);
+}
+
+.feedContent h4 {
+  font-size: 0.85rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+.feedContent p {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+.feedTime {
+  font-size: 0.65rem;
+  font-weight: 800;
+  margin-top: 0.5rem;
+  display: block;
+  text-transform: uppercase;
+}
+
+.fullWidthBtn {
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.fullWidthBtn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-soft);
+}

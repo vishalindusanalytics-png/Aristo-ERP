@@ -1,0 +1,140 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: var(--bg-card);
+    width: 100%;
+    max-width: 600px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-strong);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+}
+
+.header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.titleGroup h2 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.titleGroup p {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-top: 0.1rem;
+}
+
+.closeBtn {
+    color: var(--text-muted);
+    transition: all 0.2s;
+    padding: 0.5rem;
+    border-radius: 50%;
+}
+
+.closeBtn:hover {
+    background: var(--bg-hover);
+    color: var(--text-main);
+}
+
+.body {
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.fieldGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.fieldGroup.fullWidth {
+    grid-column: span 2;
+}
+
+.fieldGroup label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+}
+
+.fieldGroup input,
+.fieldGroup select,
+.fieldGroup textarea {
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.65rem 0.85rem;
+    color: var(--text-main);
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.fieldGroup input:focus,
+.fieldGroup select:focus,
+.fieldGroup textarea:focus {
+    border-color: var(--primary);
+}
+
+.footer {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.cancelBtn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-radius: var(--radius-sm);
+}
+
+.cancelBtn:hover {
+    background: var(--bg-hover);
+    color: var(--text-main);
+}
+
+.submitBtn {
+    padding: 0.6rem 2rem;
+    background: var(--primary);
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 15px var(--primary-soft);
+}
+
+.submitBtn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}

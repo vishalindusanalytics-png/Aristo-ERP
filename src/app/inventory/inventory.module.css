@@ -1,0 +1,241 @@
+.barLeft {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.barRight {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.searchWrapper {
+    position: relative;
+    width: 280px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+}
+
+.searchWrapper input {
+    width: 100%;
+    padding: 0.55rem 0.75rem 0.55rem 2.5rem;
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    font-size: 0.85rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.searchWrapper input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+.tabs {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.25rem;
+    background: var(--bg-hover);
+    border-radius: var(--radius-sm);
+}
+
+.tab {
+    padding: 0.45rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.activeTab {
+    background: white;
+    color: var(--primary);
+    box-shadow: var(--shadow-sm);
+}
+
+.topStats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.statCard {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.statIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statInfo h3 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin: 0.2rem 0;
+    letter-spacing: -0.02em;
+}
+
+.statInfo p {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+}
+
+.statTrend {
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    margin-left: auto;
+}
+
+.mainLayout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+}
+
+.tableToolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.idCell {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 0.8rem;
+}
+
+.nameCell {
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.stockCol {
+    width: 180px;
+}
+
+.stockGauges {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.gaugeTrack {
+    height: 6px;
+    background: var(--bg-hover);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 120px;
+}
+
+.gaugeFill {
+    height: 100%;
+}
+
+.statusBadge {
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.instock {
+    background: var(--secondary-soft);
+    color: var(--secondary);
+}
+
+.lowstock {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--accent);
+}
+
+.outstock {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+.sidePanel h3 {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+}
+
+.alertItem {
+    padding: 1rem;
+    background: var(--bg-hover);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.75rem;
+    border-left: 3px solid transparent;
+}
+
+.alertItem.critical {
+    border-left-color: var(--danger);
+}
+
+.alertItem.warning {
+    border-left-color: var(--accent);
+}
+
+.alertItem h4 {
+    font-size: 0.85rem;
+    font-weight: 800;
+    margin-bottom: 0.25rem;
+}
+
+.alertItem p {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+}
+
+.alertTime {
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-top: 0.5rem;
+    display: block;
+}
+
+.filterBtn {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.filterBtn:hover {
+    background: var(--bg-hover);
+    color: var(--primary);
+}

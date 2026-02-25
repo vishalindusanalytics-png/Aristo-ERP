@@ -1,0 +1,157 @@
+.barLeft {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.barRight {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.dateControl {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--bg-hover);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-main);
+    border: 1px solid var(--border);
+}
+
+.iconBtn {
+    color: var(--text-dim);
+    cursor: pointer;
+}
+
+.iconBtn:hover {
+    color: var(--primary);
+}
+
+.statsRow {
+    display: flex;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.statBox {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.statBox p {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.1rem;
+}
+
+.statBox h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.filterBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.75rem;
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.toolbarRight p {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.tableRow:hover {
+    background: var(--bg-hover);
+}
+
+.idCell {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.nameCell {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.statusBadge {
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.busy {
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+.ready {
+    background: var(--secondary-soft);
+    color: var(--secondary);
+}
+
+.idle {
+    background: var(--bg-hover);
+    color: var(--text-dim);
+}
+
+.utilBox {
+    width: 120px;
+}
+
+.utilBox span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.utilTrack {
+    height: 4px;
+    background: var(--bg-hover);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.utilBar {
+    height: 100%;
+    background: var(--primary);
+}
+
+.jobCell {
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+}

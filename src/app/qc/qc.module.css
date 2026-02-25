@@ -1,0 +1,221 @@
+.gridContainer {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.cardSectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.cardSectionHeader h3 {
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.batchTag {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--primary);
+    background: var(--primary-soft);
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    letter-spacing: 0.05em;
+}
+
+.testForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.inputGroup label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+}
+
+.fieldRow {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.fieldRow input {
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    outline: none;
+    transition: all 0.2s;
+}
+
+.fieldRow input:focus {
+    border-color: var(--primary);
+    background: var(--bg-card);
+}
+
+.fieldRow span {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.toggleRow {
+    display: flex;
+    gap: 0.5rem;
+    background: var(--bg-hover);
+    padding: 0.35rem;
+    border-radius: 10px;
+}
+
+.toggleRow button {
+    flex: 1;
+    padding: 0.6rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--text-dim);
+}
+
+.toggleRow button.active {
+    background: var(--bg-card);
+    color: var(--secondary);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.testForm select {
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+/* --- Results Table --- */
+.logId {
+    color: var(--primary);
+    font-weight: 800;
+}
+
+.statusBadge {
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.pass {
+    background: var(--secondary-soft);
+    color: var(--secondary);
+}
+
+.fail {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+/* --- Side Column --- */
+.sideColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.circularGauge {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+}
+
+.circularChart {
+    display: block;
+    margin: 10px auto;
+    max-width: 100%;
+    max-height: 250px;
+}
+
+.circleBg {
+    fill: none;
+    stroke: var(--bg-hover-heavy);
+    stroke-width: 3;
+}
+
+.circle {
+    fill: none;
+    stroke: var(--secondary);
+    stroke-width: 3;
+    stroke-linecap: round;
+    animation: progress 1s ease-out forwards;
+}
+
+@keyframes progress {
+    0% {
+        stroke-dasharray: 0 100;
+    }
+}
+
+.gaugeInfo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.gaugeInfo strong {
+    font-size: 2rem;
+    font-weight: 900;
+    display: block;
+    color: var(--text-main);
+}
+
+.gaugeInfo span {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+}
+
+.noteItem {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(239, 68, 68, 0.05);
+    border-radius: 12px;
+    border-left: 3px solid var(--danger);
+}
+
+.noteContent p {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.noteContent span {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    display: block;
+    margin-top: 0.25rem;
+}

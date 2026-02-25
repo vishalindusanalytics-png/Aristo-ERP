@@ -1,0 +1,209 @@
+.barLeft {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.barRight {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.searchWrapper {
+    position: relative;
+    width: 280px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+}
+
+.searchWrapper input {
+    width: 100%;
+    padding: 0.55rem 0.75rem 0.55rem 2.5rem;
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    font-size: 0.85rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.searchWrapper input:focus {
+    border-color: var(--primary);
+}
+
+.statsHeader {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.miniStat {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.miniStat p {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.miniStat h3 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin: 0;
+}
+
+.healthBar {
+    width: 100%;
+    height: 4px;
+    background: var(--bg-hover);
+    border-radius: 2px;
+    margin-top: 0.25rem;
+    overflow: hidden;
+}
+
+.healthFill {
+    height: 100%;
+    background: var(--primary);
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
+}
+
+.sectionHeader h3 {
+    font-size: 0.8rem;
+    font-weight: 900;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    white-space: nowrap;
+}
+
+.line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+}
+
+.cardGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+}
+
+.masterCard {
+    padding: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 160px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border: 1px solid var(--border);
+}
+
+.masterCard:hover {
+    border-color: var(--primary);
+    background: var(--primary-soft);
+    transform: translateY(-5px);
+}
+
+.cardTop {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.iconBox {
+    width: 48px;
+    height: 48px;
+    background: white;
+    box-shadow: var(--shadow-sm);
+    color: var(--primary);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s;
+}
+
+.masterCard:hover .iconBox {
+    background: var(--primary);
+    color: white;
+    transform: rotate(-5deg);
+}
+
+.cardText h4 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 0.35rem;
+}
+
+.cardText p {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+.cardBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--bg-hover);
+}
+
+.count {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.badge {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg-hover);
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.masterCard:hover .badge {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.1);
+}
