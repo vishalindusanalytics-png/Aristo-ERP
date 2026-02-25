@@ -32,16 +32,20 @@ export default function Header() {
     const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
     useEffect(() => {
-        const savedTheme = localStorage.getItem('theme') as 'dark' | 'light';
-        if (savedTheme) setTheme(savedTheme);
-        document.documentElement.setAttribute('data-theme', savedTheme || 'dark');
+        if (typeof window !== 'undefined') {
+            const savedTheme = localStorage.getItem('theme') as 'dark' | 'light';
+            if (savedTheme) setTheme(savedTheme);
+            document.documentElement.setAttribute('data-theme', savedTheme || 'dark');
+        }
     }, []);
 
     const toggleTheme = () => {
         const newTheme = theme === 'dark' ? 'light' : 'dark';
         setTheme(newTheme);
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
+        if (typeof window !== 'undefined') {
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
     };
 
     const pageTitle = routeNames[pathname] || "Smart ERP";
