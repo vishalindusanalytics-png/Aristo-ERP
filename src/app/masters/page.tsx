@@ -29,24 +29,29 @@ const masterGroups = [
     {
         group: "Enterprise Stakeholders",
         items: [
-            { name: "Client Directory", icon: Users, count: 124, desc: "B2B Customer Base & Ledger Mappings" },
-            { name: "Vendor Network", icon: UserSquare2, count: 42, desc: "Material Suppliers & Service Providers" },
+            { name: "Client Directory", icon: Users, count: 124, desc: "B2B Customer Base & Ledger Mappings", lastUpdated: "2h ago" },
+            { name: "Vendor Network", icon: UserSquare2, count: 42, desc: "Material Suppliers & Service Providers", lastUpdated: "1d ago" },
+            { name: "Transporter Master", icon: Truck, count: 18, desc: "Logistics Partners & Freight Agents", lastUpdated: "3d ago" },
         ]
     },
     {
-        group: "Technical Standards",
+        group: "Product & Material Standards",
         items: [
-            { name: "Bag Dimension Master", icon: Maximize2, count: 852, desc: "Width, Gusset & Height Presets" },
-            { name: "GSM Density Config", icon: Database, count: 12, desc: "Paper Quality & Burst Factor Rules" },
-            { name: "Art & Plates", icon: Palette, count: 240, desc: "Printing Assets & Stereos" },
-            { name: "Handle Type Master", icon: Settings2, count: 8, desc: "Flat, Rope & SOS Configurations" },
+            { name: "Product Master", icon: Package, count: 345, desc: "Finished Bag SKU & Variant Catalog", lastUpdated: "5h ago" },
+            { name: "Bag Dimension Master", icon: Maximize2, count: 852, desc: "Width, Gusset & Height Presets", lastUpdated: "1d ago" },
+            { name: "GSM Density Config", icon: Database, count: 12, desc: "Paper Quality & Burst Factor Rules", lastUpdated: "1w ago" },
+            { name: "Art & Plates", icon: Palette, count: 240, desc: "Printing Assets & Stereos Library", lastUpdated: "2d ago" },
+            { name: "Handle Type Master", icon: Settings2, count: 8, desc: "Flat, Rope & SOS Configurations", lastUpdated: "1w ago" },
+            { name: "Raw Material Master", icon: Dna, count: 156, desc: "Paper Rolls, Adhesive & Consumables", lastUpdated: "6h ago" },
         ]
     },
     {
-        group: "Global Logistics",
+        group: "Production & Logistics",
         items: [
-            { name: "Carton Standards", icon: Box, count: 18, desc: "Secondary Transit Packaging" },
-            { name: "Shipping Containers", icon: Truck, count: 4, desc: "ISO 20ft/40ft Spatial Rules" },
+            { name: "Machine Master", icon: Cpu, count: 24, desc: "Production Equipment Registry & Specs", lastUpdated: "4h ago" },
+            { name: "Process Master", icon: Network, count: 16, desc: "Standard Operating Procedures & Routes", lastUpdated: "2d ago" },
+            { name: "Carton Standards", icon: Box, count: 18, desc: "Secondary Transit Packaging Specs", lastUpdated: "1d ago" },
+            { name: "Shipping Containers", icon: ShieldCheck, count: 4, desc: "ISO 20ft/40ft Spatial Configuration", lastUpdated: "1w ago" },
         ]
     }
 ];
@@ -79,19 +84,22 @@ export default function Masters() {
             <div className="scroll-area">
                 <div className={styles.statsHeader}>
                     <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className={`${styles.miniStat} card-premium`}>
-                        <p>Active Entities</p>
-                        <h3>1,342</h3>
-                        <div className={styles.healthBar}><div className={styles.healthFill} style={{ width: '88%' }}></div></div>
+                        <p>Total Master Records</p>
+                        <h3>1,827</h3>
+                        <div className={styles.healthBar}><div className={styles.healthFill} style={{ width: '92%' }}></div></div>
+                        <span style={{ fontSize: '0.65rem', color: 'var(--text-dim)', marginTop: '0.25rem' }}>13 Active Categories</span>
                     </motion.div>
                     <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }} className={`${styles.miniStat} card-premium`}>
-                        <p>Data Accuracy</p>
-                        <h3>99.4%</h3>
-                        <div className={styles.healthBar}><div className={styles.healthFill} style={{ width: '99%', background: 'var(--secondary)' }}></div></div>
+                        <p>Data Integrity</p>
+                        <h3>99.8%</h3>
+                        <div className={styles.healthBar}><div className={styles.healthFill} style={{ width: '99.8%', background: 'var(--secondary)' }}></div></div>
+                        <span style={{ fontSize: '0.65rem', color: 'var(--secondary)', marginTop: '0.25rem' }}>All Validations Passed</span>
                     </motion.div>
                     <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className={`${styles.miniStat} card-premium`}>
-                        <p>Last Sync</p>
-                        <h3>04m ago</h3>
+                        <p>Tally Sync Status</p>
+                        <h3>Live</h3>
                         <div className={styles.healthBar}><div className={styles.healthFill} style={{ width: '100%', background: 'var(--accent)' }}></div></div>
+                        <span style={{ fontSize: '0.65rem', color: 'var(--accent)', marginTop: '0.25rem' }}>Last sync: 4m ago</span>
                     </motion.div>
                 </div>
 
@@ -126,7 +134,10 @@ export default function Masters() {
                                             </div>
                                         </div>
                                         <div className={styles.cardBottom}>
-                                            <span className={styles.count}><Cpu size={14} /> {item.count} Records</span>
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                                                <span className={styles.count}><Cpu size={14} /> {item.count} Records</span>
+                                                <span style={{ fontSize: '0.65rem', color: 'var(--text-dim)', fontWeight: 600 }}>Updated: {item.lastUpdated}</span>
+                                            </div>
                                             <div className={styles.badge}><ChevronRight size={16} /></div>
                                         </div>
                                     </motion.div>

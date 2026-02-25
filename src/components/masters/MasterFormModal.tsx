@@ -208,6 +208,235 @@ export default function MasterFormModal({ isOpen, onClose, type }: MasterFormMod
                         </div>
                     </div>
                 );
+            case "Product Master":
+                return (
+                    <div className={styles.formGrid}>
+                        <div className={styles.fieldGroup}>
+                            <label>Product Code / SKU</label>
+                            <input type="text" placeholder="e.g. BAG-240-100-320-F" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Product Name</label>
+                            <input type="text" placeholder="e.g. Medium Flat Handle Bag" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Category</label>
+                            <select>
+                                <option>SOS Bag</option>
+                                <option>Flat Handle Bag</option>
+                                <option>Twisted Handle Bag</option>
+                                <option>D-Cut Bag</option>
+                                <option>Wine Bag</option>
+                            </select>
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Base Price (₹)</label>
+                            <input type="number" placeholder="0.00" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Dimensions (W×G×H mm)</label>
+                            <input type="text" placeholder="240×100×320" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>GSM</label>
+                            <input type="number" placeholder="120" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Handle Type</label>
+                            <input type="text" placeholder="Flat / Twisted / None" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>HSN Code</label>
+                            <input type="text" placeholder="48192000" />
+                        </div>
+                        <div className={`${styles.fieldGroup} ${styles.fullWidth}`}>
+                            <label>Product Description</label>
+                            <textarea rows={2} placeholder="Detailed product specifications..." />
+                        </div>
+                    </div>
+                );
+            case "Transporter Master":
+                return (
+                    <div className={styles.formGrid}>
+                        <div className={styles.fieldGroup}>
+                            <label>Transporter Name</label>
+                            <input type="text" placeholder="e.g. Express Logistics Ltd" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Contact Person</label>
+                            <input type="text" placeholder="Manager Name" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Phone Number</label>
+                            <input type="tel" placeholder="+91 00000 00000" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Vehicle Type</label>
+                            <select>
+                                <option>Mini Truck (1-2 Ton)</option>
+                                <option>Medium Truck (3-7 Ton)</option>
+                                <option>Large Truck (10+ Ton)</option>
+                                <option>Container (20ft/40ft)</option>
+                            </select>
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Rate per KM (₹)</label>
+                            <input type="number" placeholder="0.00" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Service Zone</label>
+                            <input type="text" placeholder="e.g. Maharashtra, Gujarat" />
+                        </div>
+                        <div className={`${styles.fieldGroup} ${styles.fullWidth}`}>
+                            <label>Office Address</label>
+                            <textarea rows={2} placeholder="Full registered address..." />
+                        </div>
+                    </div>
+                );
+            case "Raw Material Master":
+                return (
+                    <div className={styles.formGrid}>
+                        <div className={styles.fieldGroup}>
+                            <label>Material Code</label>
+                            <input type="text" placeholder="e.g. KP-120-NAT" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Material Name</label>
+                            <input type="text" placeholder="e.g. Natural Kraft Paper 120 GSM" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Material Type</label>
+                            <select>
+                                <option>Kraft Paper</option>
+                                <option>White Paper</option>
+                                <option>Recycled Paper</option>
+                                <option>Adhesive & Glue</option>
+                                <option>Ink & Printing Material</option>
+                                <option>Handle Raw Material</option>
+                            </select>
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Unit of Measurement</label>
+                            <select>
+                                <option>KG</option>
+                                <option>Liter</option>
+                                <option>Meter</option>
+                                <option>Piece</option>
+                            </select>
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Price per Unit (₹)</label>
+                            <input type="number" placeholder="0.00" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Reorder Level</label>
+                            <input type="number" placeholder="e.g. 500" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Preferred Vendor</label>
+                            <input type="text" placeholder="Vendor name" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>HSN/SAC Code</label>
+                            <input type="text" placeholder="e.g. 4804" />
+                        </div>
+                    </div>
+                );
+            case "Machine Master":
+                return (
+                    <div className={styles.formGrid}>
+                        <div className={styles.fieldGroup}>
+                            <label>Machine ID</label>
+                            <input type="text" placeholder="e.g. M-SOS-01" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Machine Name</label>
+                            <input type="text" placeholder="e.g. High-Speed SOS Line A" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Machine Type</label>
+                            <select>
+                                <option>SOS Bag Making Machine</option>
+                                <option>Flat Handle Machine</option>
+                                <option>Twisted Handle Machine</option>
+                                <option>Printing Machine</option>
+                                <option>Cutting Machine</option>
+                                <option>Pasting Machine</option>
+                            </select>
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Capacity (pcs/hour)</label>
+                            <input type="number" placeholder="e.g. 12000" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Power Rating (KW)</label>
+                            <input type="number" placeholder="e.g. 15" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Installation Date</label>
+                            <input type="date" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Maintenance Cycle</label>
+                            <select>
+                                <option>Daily</option>
+                                <option>Weekly</option>
+                                <option>Monthly</option>
+                                <option>Quarterly</option>
+                            </select>
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Status</label>
+                            <select>
+                                <option>Active</option>
+                                <option>Maintenance</option>
+                                <option>Inactive</option>
+                            </select>
+                        </div>
+                        <div className={`${styles.fieldGroup} ${styles.fullWidth}`}>
+                            <label>Specifications & Notes</label>
+                            <textarea rows={2} placeholder="Technical specifications, operator notes..." />
+                        </div>
+                    </div>
+                );
+            case "Process Master":
+                return (
+                    <div className={styles.formGrid}>
+                        <div className={styles.fieldGroup}>
+                            <label>Process Code</label>
+                            <input type="text" placeholder="e.g. PROC-001" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Process Name</label>
+                            <input type="text" placeholder="e.g. SOS Bag Production Flow" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Process Category</label>
+                            <select>
+                                <option>Manufacturing</option>
+                                <option>Quality Check</option>
+                                <option>Packing</option>
+                                <option>Dispatch</option>
+                            </select>
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Standard Time (mins)</label>
+                            <input type="number" placeholder="e.g. 45" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Labor Required</label>
+                            <input type="number" placeholder="e.g. 2" />
+                        </div>
+                        <div className={styles.fieldGroup}>
+                            <label>Process Owner</label>
+                            <input type="text" placeholder="Department / Person" />
+                        </div>
+                        <div className={`${styles.fieldGroup} ${styles.fullWidth}`}>
+                            <label>Process Description</label>
+                            <textarea rows={3} placeholder="Detailed SOP steps, quality parameters, safety notes..." />
+                        </div>
+                    </div>
+                );
             default:
                 return <p>Form fields for {type} are being generated...</p>;
         }
