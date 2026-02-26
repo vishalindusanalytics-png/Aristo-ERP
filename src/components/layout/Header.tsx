@@ -152,8 +152,8 @@ export default function Header() {
                             <User size={18} />
                         </div>
                         <div className={styles.userDetails}>
-                            <p>Vishal Pushpad</p>
-                            <span>Admin</span>
+                            <p>Admin</p>
+                            <span>Super User</span>
                         </div>
                         <ChevronDown size={14} className={styles.dropIcon} />
                     </div>
