@@ -15,16 +15,77 @@ import { usePathname } from "next/navigation";
 import styles from "./Header.module.css";
 
 const routeNames: Record<string, string> = {
-    "/": "Executive Overview",
-    "/sales": "Sales Pipeline",
-    "/production-planning": "Machine Scheduler",
-    "/inventory": "Inventory & Store",
-    "/execution": "Production Execution",
-    "/qc": "Quality & Lab",
-    "/container-planning": "Vector Load Planner",
-    "/dispatch": "Logistics & Dispatch",
-    "/finance": "Finance & Tally Sync",
-    "/masters": "Configuration Masters",
+    // Dashboard
+    "/": "Owner Dashboard",
+    "/dashboard/production": "Production Dashboard",
+    "/dashboard/sales": "Sales Dashboard",
+    "/dashboard/inventory": "Inventory Snapshot",
+    "/dashboard/finance": "Finance Snapshot",
+    // Sales & Orders
+    "/sales/inquiry": "Inquiry",
+    "/sales/quotation": "Quotation",
+    "/sales/order": "Sales Order",
+    "/sales/proforma": "Proforma Invoice",
+    "/sales/customers": "Customer Master",
+    // Production Planning
+    "/production-planning/machines": "Machine Master",
+    "/production-planning/calendar": "Capacity Calendar",
+    "/production-planning/scheduling": "Order Scheduling",
+    "/production-planning/batches": "Batch Planning",
+    "/production-planning/release": "Plan Release",
+    // Inventory & RM
+    "/inventory/grn": "GRN Entry",
+    "/inventory/stock": "Stock View (GSM Wise)",
+    "/inventory/issue": "Material Issue",
+    "/inventory/adjustment": "Stock Adjustment",
+    "/inventory/alerts": "Low Stock Alert",
+    // Production Execution
+    "/execution/orders": "Production Order",
+    "/execution/entry": "Production Entry",
+    "/execution/wastage": "Wastage Entry",
+    "/execution/downtime": "Downtime Entry",
+    "/execution/summary": "Production Summary",
+    // Quality Control
+    "/qc/rm-inspection": "RM Inspection",
+    "/qc/in-process": "In-Process QC",
+    "/qc/final": "Final QC",
+    "/qc/rejection": "Rejection Entry",
+    "/qc/report": "QC Report",
+    // Packing & Container
+    "/packing/cartons": "Carton Configuration",
+    "/packing/entry": "Packing Entry",
+    "/packing/container": "Container Planning",
+    "/packing/loadsheet": "Load Sheet",
+    "/packing/dispatch": "Dispatch Entry",
+    // Printing & Plate
+    "/printing/plates": "Plate Master",
+    "/printing/inventory": "Plate Inventory",
+    "/printing/cylinders": "Cylinder Mapping",
+    "/printing/ink": "Ink Entry",
+    "/printing/history": "Print History",
+    // Finance & Tally
+    "/finance/invoice": "Sales Invoice",
+    "/finance/purchase": "Purchase Entry",
+    "/finance/tally": "Tally Sync",
+    "/finance/receivable": "Receivable Report",
+    "/finance/payable": "Payable Report",
+    // Reports
+    "/reports/orders": "Order Report",
+    "/reports/production": "Production Report",
+    "/reports/wastage": "Wastage Report",
+    "/reports/inventory": "Inventory Report",
+    "/reports/margin": "Margin Report",
+    // Masters
+    "/masters/bag-size": "Bag Size Master",
+    "/masters/gsm": "GSM Master",
+    "/masters/handle": "Handle Type Master",
+    "/masters/machine": "Machine Master",
+    "/masters/vendor": "Vendor Master",
+    // Admin
+    "/admin/users": "User Creation",
+    "/admin/roles": "Role Setup",
+    "/admin/permissions": "Permission Control",
+    "/admin/activity": "Activity Log",
 };
 
 export default function Header() {

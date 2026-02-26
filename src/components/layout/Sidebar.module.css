@@ -4,27 +4,28 @@
     border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
-    padding: 0.75rem 0.6rem;
+    padding: 0.75rem 0.5rem;
     z-index: 100;
-    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .logoSlot {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.25rem;
-    margin-bottom: 1.25rem;
+    padding: 0.25rem 0.35rem;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
 }
 
 .logoIcon {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     background: linear-gradient(135deg, var(--primary), var(--primary-hover));
     color: white;
-    border-radius: 12px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,15 +34,15 @@
 }
 
 .logoText h1 {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     margin: 0;
     line-height: 1;
-    letter-spacing: 0.05em;
-    font-weight: 800;
+    letter-spacing: 0.06em;
+    font-weight: 900;
 }
 
 .logoText span {
-    font-size: 0.7rem;
+    font-size: 0.62rem;
     color: var(--text-dim);
     font-weight: 700;
     text-transform: uppercase;
@@ -52,10 +53,11 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.15rem;
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    padding-bottom: 0.5rem;
 }
 
 .nav::-webkit-scrollbar {
@@ -65,41 +67,56 @@
 .group {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.08rem;
 }
 
 .groupTitle {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 800;
     color: var(--text-dim);
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    padding: 0 0.75rem;
-    margin-bottom: 0.15rem;
+    padding: 0.5rem 0.7rem 0.1rem;
 }
 
 .items {
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
+    gap: 0.05rem;
 }
 
 .navLink {
-    padding: 0.55rem 0.75rem;
+    padding: 0.5rem 0.7rem;
     border-radius: 8px;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.65rem;
     color: var(--text-muted);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    width: 100%;
+    text-align: left;
+}
+
+.navBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
 }
 
 .navLink:hover {
     background: var(--bg-hover);
     color: var(--text-main);
-    transform: translateX(3px);
+}
+
+.navLabel {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .active {
@@ -108,12 +125,24 @@
     font-weight: 700;
 }
 
+.activeParent {
+    color: var(--primary) !important;
+    font-weight: 700;
+}
+
 .iconWrapper {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+}
+
+.chevronIcon {
+    display: flex;
+    align-items: center;
+    color: var(--text-dim);
     flex-shrink: 0;
 }
 
@@ -127,17 +156,73 @@
     box-shadow: 0 0 8px var(--primary);
 }
 
+/* Sub Menu */
+.subMenu {
+    overflow: hidden;
+    padding: 0 0 0.2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+}
+
+.subLink {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.38rem 0.7rem 0.38rem 2.1rem;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    transition: all 0.15s;
+    position: relative;
+}
+
+.subLink:hover {
+    background: var(--bg-hover);
+    color: var(--text-muted);
+}
+
+.subActive {
+    color: var(--primary) !important;
+    font-weight: 700;
+    background: var(--primary-soft);
+}
+
+.subDot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.5;
+    flex-shrink: 0;
+}
+
+.subActive .subDot {
+    opacity: 1;
+    background: var(--primary);
+    box-shadow: 0 0 6px var(--primary);
+}
+
 .separator {
     height: 1px;
     background: var(--border);
-    margin: 0.25rem 0.75rem;
-    opacity: 0.3;
+    margin: 0.3rem 0.5rem;
+    opacity: 0.4;
+}
+
+.thinDivider {
+    height: 1px;
+    background: var(--border);
+    margin: 0.2rem 0.5rem;
+    opacity: 0.25;
 }
 
 .footer {
     margin-top: auto;
     padding-top: 0.75rem;
     border-top: 1px solid var(--border);
+    flex-shrink: 0;
 }
 
 .collapseFullBtn {
@@ -145,7 +230,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.65rem;
+    padding: 0.6rem;
     background: var(--bg-hover);
     color: var(--text-dim);
     border-radius: 8px;
@@ -164,5 +249,5 @@
     align-items: center;
     gap: 0.75rem;
     font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
 }
