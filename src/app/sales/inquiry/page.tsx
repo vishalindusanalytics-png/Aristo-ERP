@@ -10,7 +10,12 @@ const columns = [
     { key: "date", label: "Date" },
     {
         key: "status", label: "Status", render: (v: string | number) => (
-            <span className={`badge badge-${v === "Quoted" ? "blue" : v === "Confirmed" ? "green" : v === "In Progress" ? "orange" : "yellow"}`}>{v}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span className={`badge badge-${v === "Quoted" ? "blue" : v === "Confirmed" ? "green" : v === "In Progress" ? "orange" : "yellow"}`}>{v}</span>
+                {v === "Inquiry" && (
+                    <a href="/sales/estimation" className="badge badge-purple" style={{ textDecoration: 'none', cursor: 'pointer' }}>Estimate Now</a>
+                )}
+            </div>
         )
     },
 ];

@@ -1,0 +1,534 @@
+.container {
+    padding: 0.25rem 0.5rem;
+    width: 100%;
+    margin: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    margin-bottom: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.25rem;
+}
+
+.titleMain {
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    display: block;
+    margin-top: -2px;
+}
+
+/* ─── Premium Stepper ───────────────────────────────── */
+.stepperContainer {
+    position: relative;
+    margin-bottom: 0.75rem;
+    padding: 0 0.5rem;
+}
+
+.stepperLine {
+    position: absolute;
+    top: 14px;
+    /* Centered with 28px circles */
+    left: 40px;
+    right: 40px;
+    height: 2px;
+    background: var(--border);
+    z-index: 1;
+}
+
+.stepperProgress {
+    position: absolute;
+    top: 14px;
+    left: 40px;
+    height: 2px;
+    background: var(--primary);
+    z-index: 2;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.steps {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 3;
+}
+
+.stepWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+}
+
+.stepCircle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg-sidebar);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    transition: all 0.3s;
+}
+
+.stepWrapper:hover .stepCircle {
+    border-color: var(--text-muted);
+}
+
+.activeStep .stepCircle {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    box-shadow: 0 0 20px var(--primary-soft);
+    transform: scale(1.1);
+}
+
+.completedStep .stepCircle {
+    background: var(--secondary);
+    border-color: var(--secondary);
+    color: white;
+}
+
+.stepLabel {
+    font-size: 0.65rem;
+    /* Tiny labels */
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-dim);
+    transition: color 0.3s;
+}
+
+.activeStep .stepLabel {
+    color: var(--text-main);
+}
+
+/* ─── Glassmorphism Content Area ─────────────────────── */
+.contentArea {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.65rem 0.75rem;
+    min-height: calc(100vh - 180px);
+    /* Dynamic height calculation */
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.reportGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    height: 100%;
+}
+
+.reportSection {
+    background: var(--bg-hover);
+    border-radius: 4px;
+    padding: 0.6rem;
+    border: 1px solid var(--border);
+}
+
+.reportTitle {
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--primary-soft);
+    padding-bottom: 0.25rem;
+}
+
+.contentArea::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), #a855f7, var(--primary));
+    opacity: 0.5;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 1rem;
+    align-items: start;
+}
+
+.fullWidthGrid {
+    display: block;
+    width: 100%;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 columns for maximum density */
+    gap: 0.75rem;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.label {
+    font-size: 0.68rem;
+    /* Even smaller labels */
+    font-weight: 800;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.inputGroup:focus-within .label {
+    color: var(--primary);
+}
+
+.inputField {
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    color: var(--text-main);
+    font-size: 0.78rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    height: 28px;
+    width: 100%;
+}
+
+.inputField:focus {
+    border-color: var(--primary);
+    background: var(--bg-card);
+    box-shadow: 0 0 0 3px var(--primary-soft);
+}
+
+.selectField {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+}
+
+/* ─── Visual Preview Sidebar ────────────────────────── */
+.previewSidebar {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: sticky;
+    top: 2rem;
+    box-shadow: var(--shadow-md);
+}
+
+.mockupContainer {
+    height: 180px;
+    /* Shorter mockup */
+    background: radial-gradient(circle at center, rgba(59, 130, 246, 0.1), transparent);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    perspective: 1000px;
+}
+
+.bagMockup {
+    background: #d97706;
+    border: 2px solid #b45309;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(-20deg) rotateX(10deg);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.bagFront {
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    border: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bagGusset {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    transform-origin: right;
+    transform: rotateY(-90deg);
+}
+
+.quickStats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.qStat {
+    background: var(--bg-hover);
+    padding: 0.35rem 0.5rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    border: 1px solid var(--border);
+}
+
+.qLabel {
+    font-size: 0.55rem;
+    color: var(--text-dim);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.qValue {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+/* ─── Navigation Buttons ────────────────────────────── */
+.navActions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btnBase {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+}
+
+.btnSecondary {
+    background: transparent;
+    border: 1.5px solid var(--border);
+    color: var(--text-muted);
+}
+
+.btnSecondary:hover:not(:disabled) {
+    border-color: var(--text-main);
+    color: var(--text-main);
+}
+
+.btnPrimary {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 8px 16px var(--primary-soft);
+}
+
+.btnPrimary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px var(--primary-soft);
+}
+
+.btnSmall {
+    padding: 0.35rem;
+    background: var(--bg-hover);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.btnSmall:hover {
+    background: var(--bg-hover-heavy);
+    color: var(--text-main);
+    border-color: var(--primary);
+}
+
+/* ─── Summary Section ───────────────────────────────── */
+.summaryHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.priceDisplay {
+    text-align: right;
+}
+
+.mainPriceLabel {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.mainPriceValue {
+    font-size: 2.25rem;
+    /* Compact price */
+    font-weight: 900;
+    color: var(--text-main);
+    letter-spacing: -0.04em;
+    line-height: 1;
+}
+
+.costTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.costTable th {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+}
+
+.costTable td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+    color: var(--text-main);
+}
+
+.costPercent {
+    width: 100px;
+}
+
+.percentBar {
+    height: 6px;
+    background: var(--bg-hover);
+    border-radius: 3px;
+    margin-top: 6px;
+    overflow: hidden;
+}
+
+.percentFill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 3px;
+}
+
+.advisoryBox {
+    margin-top: 1rem;
+    padding: 0.65rem 1rem;
+    background: var(--bg-hover);
+    border-left: 3px solid var(--primary);
+    border-radius: 4px;
+}
+
+.advisoryTitle {
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.advisoryContent {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.statBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.1rem 0.4rem;
+    background: var(--bg-hover-heavy);
+    border-radius: 3px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-right: 0.5rem;
+}
+
+.rowLabel {
+    color: var(--text-dim);
+    font-size: 0.72rem;
+}
+
+.rowValue {
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 0.72rem;
+}
+
+.highlightValue {
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.secondaryValue {
+    font-weight: 800;
+    color: var(--secondary);
+}
+
+.reportSummaryBanner {
+    grid-column: span 3;
+    background: var(--primary-soft);
+    border: 1px solid var(--primary);
+    padding: 0.8rem 1rem;
+    border-radius: 4px;
+}

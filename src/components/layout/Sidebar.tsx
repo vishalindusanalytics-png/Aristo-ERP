@@ -74,6 +74,7 @@ const groups: NavGroup[] = [
                 icon: ShoppingCart,
                 sub: [
                     { name: "Inquiry", path: "/sales/inquiry" },
+                    { name: "AI Estimation", path: "/sales/estimation" },
                     { name: "Quotation", path: "/sales/quotation" },
                     { name: "Sales Order", path: "/sales/order" },
                     { name: "Proforma Invoice", path: "/sales/proforma" },
