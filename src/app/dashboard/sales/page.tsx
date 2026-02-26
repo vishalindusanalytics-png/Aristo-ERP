@@ -1,5 +1,6 @@
 "use client";
 import ModulePage from "@/components/layout/ModulePage";
+import SalesPipeline from "@/components/features/SalesPipeline";
 
 const columns = [
     { key: "id", label: "Order ID" },
@@ -43,6 +44,7 @@ export default function SalesDashboardPage() {
             columns={columns}
             fields={fields}
             initialRows={initialRows}
+            customHeader={<SalesPipeline />}
             stats={[
                 { label: "Orders This Month", value: "₹28.6L", color: "#f97316" },
                 { label: "Active Orders", value: "24", color: "#3b82f6" },

@@ -98,6 +98,11 @@
     background: var(--bg-hover);
 }
 
+.selectedRow {
+    background: var(--primary-soft) !important;
+    border-left: 3px solid var(--primary);
+}
+
 .actionBtns {
     display: flex;
     align-items: center;

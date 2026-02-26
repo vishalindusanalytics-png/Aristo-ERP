@@ -1,5 +1,6 @@
 "use client";
 import ModulePage from "@/components/layout/ModulePage";
+import ContainerVisualizer from "@/components/features/ContainerVisualizer";
 
 const columns = [
     { key: "id", label: "Container ID" },
@@ -36,9 +37,9 @@ const fields = [
 ];
 
 const initialRows = [
-    { id: "CNT-4401", type: "40ft HC", orders: "SO-2400, SO-2398", totalCartons: "64", loadFactor: "96.8%", eta: "2026-02-28", status: "Loaded" },
-    { id: "CNT-4402", type: "20ft GP", orders: "SO-2402", totalCartons: "20", loadFactor: "71.4%", eta: "2026-03-02", status: "Planning" },
-    { id: "CNT-4403", type: "40ft HC", orders: "SO-2403, SO-2404, SO-2405", totalCartons: "0", loadFactor: "0%", eta: "2026-03-05", status: "Planning" },
+    { id: "CNT-4401", type: "40ft HC", orders: "SO-2400, SO-2398", totalCartons: 64, loadFactor: "96.8%", eta: "2026-02-28", status: "Loaded" },
+    { id: "CNT-4402", type: "20ft GP", orders: "SO-2402", totalCartons: 20, loadFactor: "71.4%", eta: "2026-03-02", status: "Planning" },
+    { id: "CNT-4403", type: "40ft HC", orders: "SO-2403, SO-2404, SO-2405", totalCartons: 0, loadFactor: "0%", eta: "2026-03-05", status: "Planning" },
 ];
 
 export default function ContainerPlanningPage() {
@@ -56,6 +57,14 @@ export default function ContainerPlanningPage() {
                 { label: "Avg Load Factor", value: "84.1%", color: "#f97316" },
                 { label: "Upcoming Dispatch", value: "2", color: "#f59e0b" }
             ]}
+            customDetailView={(row) => row && (
+                <ContainerVisualizer
+                    containerId={String(row.id)}
+                    type={String(row.type)}
+                    loadFactor={String(row.loadFactor)}
+                    totalCartons={Number(row.totalCartons)}
+                />
+            )}
         />
     );
 }

@@ -1,5 +1,6 @@
 "use client";
 import ModulePage from "@/components/layout/ModulePage";
+import MachineStatusGrid from "@/components/features/MachineStatusGrid";
 
 const columns = [
     { key: "shift", label: "Shift" },
@@ -43,6 +44,7 @@ export default function ProductionDashboardPage() {
             columns={columns}
             fields={fields}
             initialRows={initialRows}
+            customHeader={<MachineStatusGrid data={initialRows} />}
             stats={[
                 { label: "Total Output Today", value: "842K", color: "#3b82f6" },
                 { label: "OEE Average", value: "92.1%", color: "#10b981" },

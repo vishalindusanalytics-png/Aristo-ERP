@@ -13,7 +13,23 @@ const columns = [
     },
 ];
 
-const rows = [
+const fields = [
+    { key: "id", label: "Machine ID", required: true },
+    { key: "name", label: "Machine Name", placeholder: "e.g. HighSpeed SOS", required: true },
+    {
+        key: "type", label: "Machine Type", type: "select" as const,
+        options: ["SOS Bag", "Twisted Handle", "Flat Handle", "Corrugator", "Gluing", "Printing", "Slitting"],
+        required: true
+    },
+    { key: "capacity", label: "Capacity (Pcs/hr)", type: "number" as const, placeholder: "e.g. 6000", required: true },
+    {
+        key: "status", label: "Status", type: "select" as const,
+        options: ["Active", "Inactive", "Maintenance", "Repair Required"],
+        required: true
+    },
+];
+
+const initialRows = [
     { id: "M-01", name: "HighSpeed SOS", type: "SOS Bag", capacity: "6,000", status: "Active" },
     { id: "M-02", name: "SOS Line-B", type: "SOS Bag", capacity: "5,500", status: "Active" },
     { id: "M-03", name: "Twisted Handle", type: "Twisted Handle", capacity: "3,200", status: "Maintenance" },
@@ -27,8 +43,10 @@ export default function MachineMasterPage() {
         <ModulePage
             title="Machine Master"
             addLabel="Add Machine"
+            idPrefix="M-"
             columns={columns}
-            rows={rows}
+            fields={fields}
+            initialRows={initialRows}
             stats={[
                 { label: "Total Machines", value: "6", color: "#3b82f6" },
                 { label: "Active", value: "4", color: "#10b981" },

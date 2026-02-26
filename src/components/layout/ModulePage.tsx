@@ -30,6 +30,8 @@ export interface ModulePageProps {
     stats?: { label: string; value: string; color: string }[];
     idPrefix?: string;         // e.g. "INQ-" for auto-id generation
     generateId?: (rows: Record<string, string | number>[]) => string;
+    customHeader?: React.ReactNode;
+    customDetailView?: (row: Record<string, string | number> | null) => React.ReactNode;
 }
 
 function generateAutoId(prefix: string, rows: Record<string, string | number>[]) {
@@ -53,11 +55,14 @@ export default function ModulePage({
     stats,
     idPrefix = "REC-",
     generateId,
+    customHeader,
+    customDetailView,
 }: ModulePageProps) {
     const [rows, setRows] = useState<Record<string, string | number>[]>(initialRows);
     const [search, setSearch] = useState("");
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [editingRow, setEditingRow] = useState<Record<string, string | number> | null>(null);
+    const [selectedRow, setSelectedRow] = useState<Record<string, string | number> | null>(initialRows[0] || null);
     const [formData, setFormData] = useState<Record<string, string>>({});
     const [deleteTarget, setDeleteTarget] = useState<number | null>(null);
     const [saving, setSaving] = useState(false);
@@ -150,6 +155,17 @@ export default function ModulePage({
 
             {/* Scroll Area */}
             <div className="scroll-area">
+                {customHeader && (
+                    <div style={{ marginBottom: '1.5rem' }}>
+                        {customHeader}
+                    </div>
+                )}
+
+                {customDetailView && (
+                    <div className={styles.customDetailSection} style={{ marginBottom: '1.5rem' }}>
+                        {customDetailView(selectedRow)}
+                    </div>
+                )}
                 {/* Stats Row */}
                 {stats && stats.length > 0 && (
                     <div className={styles.statsRow}>
@@ -195,7 +211,8 @@ export default function ModulePage({
                                     initial={{ opacity: 0, y: 4 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: i * 0.03 }}
-                                    className={styles.tableRow}
+                                    className={`${styles.tableRow} ${selectedRow === row ? styles.selectedRow : ""}`}
+                                    onClick={() => setSelectedRow(row)}
                                 >
                                     {columns.map((col) => (
                                         <td key={col.key}>
