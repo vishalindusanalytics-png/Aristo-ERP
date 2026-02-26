@@ -18,18 +18,21 @@ import {
     ShoppingBag,
     History,
     Search,
-    Plus
+    Plus,
+    Info, // Added Info icon
+    Activity, // Added Activity icon
+    CheckCircle // Added CheckCircle icon
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './Estimation.module.css';
 
 const STEPS = [
-    { name: "Context", icon: Briefcase },
-    { name: "Product", icon: Package },
+    { name: "Context", icon: Info },
+    { name: "Engineering", icon: Package },
     { name: "Logistics", icon: Truck },
-    { name: "Direct Cost", icon: Calculator },
-    { name: "Production", icon: Zap },
-    { name: "Finalize", icon: TrendingUp }
+    { name: "Material", icon: ShoppingBag },
+    { name: "Production", icon: Activity },
+    { name: "Summary", icon: CheckCircle }
 ];
 
 export default function ProfessionalEstimation() {
@@ -47,72 +50,99 @@ export default function ProfessionalEstimation() {
         { id: "EST-2055", customer: "Swift Logistics", date: "2026-02-21", qty: 15000, value: 62000, status: "Draft", type: "Export", bag: "Twisted" },
     ]);
     const [data, setData] = useState({
+        // 1. BASIC INFORMATION
         estNo: "EST-COMING",
         estDate: "",
         customerName: '',
         customerType: 'Domestic',
-        inquiryRef: '',
-        salesPerson: '',
+        salesPerson: 'Admin',
         currency: 'INR',
-        deliveryDate: '',
+        inquiryRef: '',
         targetPrice: 0,
+        deliveryDate: '',
         remarks: '',
-        leadTime: '15 Days',
-        paymentTerms: '30 Days Net',
-        urgency: 'Standard',
-        industry: 'Retail',
-        targetMargin: 15,
 
+        // 2. BAG DIMENSION DETAILS
         bagType: 'SOS',
         width: 300,
         gusset: 120,
         height: 400,
+        bottomFold: 40,
+        topFoldMm: 20,
+
+        // 3. PAPER SPECIFICATION
         gsm: 120,
         paperType: 'Kraft Brown',
+        reelWidth: 700,
+        reelRate: 68,
+        grainDirection: 'Vertical',
+        fscRequired: 'No',
+        moisturePercent: 5,
+
+        // 4. PRINTING DETAILS
         printing: 'Yes',
         inkColors: 2,
-        inkCoverage: 10,
-        coating: 'None',
-        reinforceBottom: false,
         printSide: 'Single',
-        handleType: 'Twisted',
-        handleColor: 'Matching',
-        handleGsm: 100,
-        reinforcement: 'Yes',
-        topFold: true,
-        dieCut: false,
+        coverageType: 'Partial',
+        plateCostPerColor: 1200,
+        inkType: 'Water Based',
+        inkRate: 320,
+        inkUsagePer1000: 450,
+        printingSetupCost: 500,
 
+        // 5. HANDLE DETAILS
+        handleType: 'Twisted',
+        handleLength: 350,
+        handleCostPerPc: 1.25,
+        patchRequired: 'Yes',
+        patchGsm: 120,
+        patchCost: 0.45,
+
+        // 6. ORDER DETAILS
         orderQty: 10000,
         wastagePercent: 4.5,
         extraQtyPercent: 0,
-        packingType: 'Bundle',
-        pcsPerBundle: 50,
-        cartonType: '3 Ply',
 
-        paperRate: 68,
-        glueType: 'Hotmelt',
+        // 7. GLUE & CONSUMABLES
         glueUsage: 3.2,
         glueRate: 95,
-        handleCostPerPc: 1.25,
 
-        plateCostPerColor: 1200,
-        inkUsagePer1000: 450,
-        inkRate: 320,
-
+        // 9. MACHINE COSTING
+        machineType: 'Automatic SOS',
         machineSpeed: 85,
+        changeoverTime: 45,
         machineHourRate: 550,
         powerCostPerHour: 95,
-        labourCostPerHour: 60,
-        setupTime: 30,
 
+        // 10. LABOUR
+        labourCostPerHour: 60,
+
+        // 11. OVERHEADS
         factoryOverheadPercent: 6,
         adminOverheadPercent: 4,
+        packingMaterialCost: 200,
+        cartonCost: 45,
+
+        // 13. MARGIN
         marginPercent: 18,
 
+        // 14. EXPORT
         freightCost: 0,
         insuranceCost: 0,
         documentationCost: 0,
-        containerCost: 0
+        containerCost: 0,
+
+        // 15. CONTAINER PRE-CHECK
+        bagsPerCarton: 200,
+        cartonL: 600,
+        cartonW: 400,
+        cartonH: 400,
+        containerType: '20ft',
+
+        // UI Helpers
+        urgency: 'Standard',
+        industry: 'Retail',
+        targetMargin: 15
     });
 
     useEffect(() => {
@@ -132,36 +162,47 @@ export default function ProfessionalEstimation() {
     };
 
     const calcs = useMemo(() => {
+        // 1. Production Quantity
         const finalProdQty = Math.ceil(data.orderQty * (1 + (data.wastagePercent / 100)) * (1 + (data.extraQtyPercent / 100)));
-        const devWidth = data.width + (2 * data.gusset) + 25;
-        const devLength = data.height + 40 + 20;
+
+        // 2. Bag Dimensions (Developed)
+        // For SOS: Width + Gusset + Height + Folds
+        const devWidth = (data.width * 2) + (data.gusset * 2) + 25; // Tube formation allowance
+        const devLength = data.height + data.bottomFold + data.topFoldMm;
+
         const paperArea = (devWidth * devLength) / 1000000;
         const weight = paperArea * data.gsm;
         const paperKg = (weight * finalProdQty) / 1000;
-        const paperCost = paperKg * data.paperRate;
+        const paperCost = paperKg * data.reelRate;
 
+        // 3. Glue & Consumables
         const glueKg = (data.glueUsage * finalProdQty) / 1000;
         const glueCost = glueKg * data.glueRate;
         const handleCost = data.handleType !== 'None' ? data.handleCostPerPc * finalProdQty : 0;
+        const patchCost = data.patchRequired === 'Yes' ? data.patchCost * finalProdQty : 0;
 
+        // 4. Printing
         let printCost = 0;
         if (data.printing === 'Yes') {
             const plate = data.plateCostPerColor * data.inkColors;
-            // Base ink usage adjusted by coverage %
-            const ink = ((data.inkUsagePer1000 * finalProdQty * (data.inkCoverage / 100)) / 1000) * data.inkRate;
-            printCost = plate + ink;
+            const coverageFactor = data.coverageType === 'Full' ? 1.5 : 0.4;
+            const ink = ((data.inkUsagePer1000 * finalProdQty * coverageFactor) / 1000) * data.inkRate;
+            printCost = plate + ink + data.printingSetupCost;
         }
 
-        const reinforceCost = data.reinforceBottom ? (5.5 * finalProdQty) : 0; // Fixed cost for bottom board
-
-        const runTime = (finalProdQty / (data.machineSpeed * 60)) + (data.setupTime / 60);
+        // 5. Machine & Labour
+        const runTime = (finalProdQty / (data.machineSpeed * 60)) + (data.changeoverTime / 60);
         const mcCost = runTime * (data.machineHourRate + data.powerCostPerHour);
         const lbCost = runTime * data.labourCostPerHour;
 
-        const directCost = paperCost + glueCost + handleCost + printCost + mcCost + lbCost + reinforceCost;
-        const overhead = directCost * ((data.factoryOverheadPercent + data.adminOverheadPercent) / 100);
-        const totalProductionCost = directCost + overhead;
+        // 6. Overheads
+        const directCost = paperCost + glueCost + handleCost + patchCost + printCost + mcCost + lbCost;
+        const packingTotal = (data.cartonCost * (finalProdQty / data.bagsPerCarton)) + data.packingMaterialCost;
 
+        const overheads = directCost * ((data.factoryOverheadPercent + data.adminOverheadPercent) / 100) + packingTotal;
+        const totalProductionCost = directCost + overheads;
+
+        // 7. Summary
         const costPerBag = totalProductionCost / finalProdQty;
         const targetSP = costPerBag * (1 + (data.marginPercent / 100));
 
@@ -182,7 +223,7 @@ export default function ProfessionalEstimation() {
                 printing: printCost,
                 machine: mcCost,
                 labour: lbCost,
-                overhead: overhead
+                overhead: overheads
             },
             totalProductionCost,
             costPerBag,
@@ -190,96 +231,76 @@ export default function ProfessionalEstimation() {
             finalRevenue,
             totalProfit,
             prodTimeHours: runTime,
-            marginOnRevenue: (totalProfit / finalRevenue) * 100
+            marginOnRevenue: finalRevenue > 0 ? (totalProfit / finalRevenue) * 100 : 0
         };
     }, [data]);
 
     const steps = [
         {
-            title: "Commercial Context",
+            title: "Basic Information",
             content: (
                 <>
                     <div className={styles.formGrid}>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Customer Entity</label>
-                            <select className={`${styles.inputField} ${styles.selectField}`} name="customerName" value={data.customerName} onChange={handleChange}>
-                                <option value="">Select Master Entity</option>
-                                <option value="TechCorp">TechCorp Global Logistics</option>
-                                <option value="GreenMart">Green Mart Retail Chain</option>
-                                <option value="Luxe">Luxe Boutique Intl.</option>
-                            </select>
+                            <label className={styles.label}>Estimation No</label>
+                            <input className={styles.inputField} type="text" name="estNo" value={data.estNo} readOnly style={{ opacity: 0.7 }} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Region / Flow</label>
+                            <label className={styles.label}>Estimation Date</label>
+                            <input className={styles.inputField} type="date" name="estDate" value={data.estDate} onChange={handleChange} />
+                        </div>
+                        <div className={styles.inputGroup}>
+                            <label className={styles.label}>Customer Name</label>
+                            <input className={styles.inputField} type="text" name="customerName" value={data.customerName} onChange={handleChange} placeholder="Enter name..." />
+                        </div>
+                        <div className={styles.inputGroup}>
+                            <label className={styles.label}>Customer Type</label>
                             <select className={`${styles.inputField} ${styles.selectField}`} name="customerType" value={data.customerType} onChange={handleChange}>
-                                <option value="Domestic">Domestic (Local GST)</option>
-                                <option value="Export">International (Export Flow)</option>
+                                <option value="Domestic">Domestic</option>
+                                <option value="Export">Export</option>
                             </select>
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Industry Segment</label>
-                            <select className={`${styles.inputField} ${styles.selectField}`} name="industry" value={data.industry} onChange={handleChange}>
-                                <option value="Retail">Retail / Fashion</option>
-                                <option value="Food">Food / Beverage</option>
-                                <option value="ecommerce">E-Commerce</option>
-                                <option value="Medical">Medical / Pharma</option>
-                            </select>
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>Sales Executive</label>
-                            <select className={`${styles.inputField} ${styles.selectField}`} name="salesPerson" value={data.salesPerson} onChange={handleChange}>
-                                <option value="Arjun">Arjun Singh</option>
-                                <option value="Anita">Anita Shah</option>
-                            </select>
+                            <label className={styles.label}>Sales Person</label>
+                            <input className={styles.inputField} type="text" name="salesPerson" value={data.salesPerson} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
                             <label className={styles.label}>Currency</label>
                             <select className={`${styles.inputField} ${styles.selectField}`} name="currency" value={data.currency} onChange={handleChange}>
                                 <option value="INR">INR (₹)</option>
                                 <option value="USD">USD ($)</option>
+                                <option value="EUR">EUR (€)</option>
                             </select>
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Project Urgency</label>
-                            <select className={`${styles.inputField} ${styles.selectField}`} name="urgency" value={data.urgency} onChange={handleChange}>
-                                <option value="Standard">Standard (Low Cost)</option>
-                                <option value="Urgent">Urgent (Express)</option>
-                                <option value="Critical">Critical (Overtime)</option>
-                            </select>
+                            <label className={styles.label}>Inquiry Reference</label>
+                            <input className={styles.inputField} type="text" name="inquiryRef" value={data.inquiryRef} onChange={handleChange} placeholder="Ref code..." />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Lead Time</label>
-                            <select className={styles.inputField} name="leadTime" value={data.leadTime} onChange={handleChange}>
-                                <option value="7 Days">7 Days (Express)</option>
-                                <option value="15 Days">15 Days (Std)</option>
-                                <option value="30 Days">30 Days (Bulk)</option>
-                            </select>
+                            <label className={styles.label}>Target Price</label>
+                            <input className={styles.inputField} type="number" name="targetPrice" value={data.targetPrice} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Payment Terms</label>
-                            <select className={styles.inputField} name="paymentTerms" value={data.paymentTerms} onChange={handleChange}>
-                                <option value="Advanced">100% Adv.</option>
-                                <option value="30 Days">30 Days Net</option>
-                                <option value="LC">Letter Credit</option>
-                            </select>
+                            <label className={styles.label}>Req. Delivery Date</label>
+                            <input className={styles.inputField} type="date" name="deliveryDate" value={data.deliveryDate} onChange={handleChange} />
                         </div>
-                        <div className={styles.inputGroup} style={{ gridColumn: 'span 4' }}>
-                            <label className={styles.label}>Strategic Remarks</label>
-                            <textarea className={styles.inputField} name="remarks" value={data.remarks} onChange={handleChange} rows={1} placeholder="Competitive insights, competitor price, or unique requirements..." />
+                        <div className={styles.inputGroup} style={{ gridColumn: 'span 3' }}>
+                            <label className={styles.label}>Remarks</label>
+                            <input className={styles.inputField} type="text" name="remarks" value={data.remarks} onChange={handleChange} placeholder="Special instructions..." />
                         </div>
                     </div>
                     <div className={styles.advisoryBox}>
-                        <div className={styles.advisoryTitle}><Sparkles size={10} /> AI COMMERCIAL INSIGHT</div>
+                        <div className={styles.advisoryTitle}><Sparkles size={10} /> COMMERCIAL CONTEXT</div>
                         <div className={styles.advisoryContent}>
-                            <span className={styles.statBadge}>SEGMENT: {data.industry.toUpperCase()}</span>
-                            This industry usually yields <span style={{ color: 'var(--primary)', fontWeight: 800 }}>12-15% margin</span>. Selected lead time is within typical SLA for {data.customerType} shipments.
+                            <span className={styles.statBadge}>CLIENT: {data.customerName || 'N/A'}</span>
+                            {data.customerType === 'Export' ? 'Export documentation and container planning will be enabled in next steps.' : 'Standard domestic GST and transport rates apply.'}
                         </div>
                     </div>
                 </>
             )
         },
         {
-            title: "Product Engineering",
+            title: "Product Specification",
             content: (
                 <>
                     <div className={styles.formGrid}>
@@ -287,59 +308,27 @@ export default function ProfessionalEstimation() {
                             <label className={styles.label}>Bag Type</label>
                             <select className={styles.inputField} name="bagType" value={data.bagType} onChange={handleChange}>
                                 <option value="SOS">SOS Box Bag</option>
-                                <option value="Flat">Flat-V Handleless</option>
+                                <option value="Flat">Flat / V-Bottom</option>
+                                <option value="D-Cut">D-Cut Bag</option>
                                 <option value="Twisted">Twisted Handle</option>
                             </select>
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Paper Base</label>
+                            <label className={styles.label}>Paper Type</label>
                             <select className={styles.inputField} name="paperType" value={data.paperType} onChange={handleChange}>
-                                <option value="Kraft Brown">Kraft Natural Brown</option>
-                                <option value="White">Bleached White</option>
-                                <option value="Premium">Recycled Grey</option>
+                                <option value="Brown">Brown Kraft</option>
+                                <option value="White">White Bleached</option>
+                                <option value="Virgin">Virgin Kraft</option>
+                                <option value="Recycled">Recycled</option>
                             </select>
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>GSM</label>
-                            <select className={styles.inputField} name="gsm" value={data.gsm} onChange={handleChange}>
-                                {[80, 100, 110, 120, 140, 150].map(g => <option key={g} value={g}>{g} GSM</option>)}
-                            </select>
+                            <label className={styles.label}>Paper GSM</label>
+                            <input className={styles.inputField} type="number" name="gsm" value={data.gsm} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Printing</label>
-                            <select className={styles.inputField} name="printing" value={data.printing} onChange={handleChange}>
-                                <option value="Yes">Yes (Custom)</option>
-                                <option value="No">No (Plain)</option>
-                            </select>
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>Ink Colors</label>
-                            <select className={styles.inputField} name="inkColors" value={data.inkColors} onChange={handleChange}>
-                                {[0, 1, 2, 3, 4, 6].map(c => <option key={c} value={c}>{c} Colors</option>)}
-                            </select>
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>Print Side</label>
-                            <select className={styles.inputField} name="printSide" value={data.printSide} onChange={handleChange}>
-                                <option value="Single">Single Side</option>
-                                <option value="Both">Both Sides</option>
-                                <option value="Full">Full Coverage</option>
-                            </select>
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>Surface Finish</label>
-                            <select className={styles.inputField} name="coating" value={data.coating} onChange={handleChange}>
-                                <option value="None">None</option>
-                                <option value="Varnish">Varnish</option>
-                                <option value="Lamination">Lamination</option>
-                            </select>
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>Reinforce</label>
-                            <select className={styles.inputField} name="reinforceBottom" value={data.reinforceBottom.toString()} onChange={handleChange}>
-                                <option value="false">Base Only</option>
-                                <option value="true">Cardboard (Bottom)</option>
-                            </select>
+                            <label className={styles.label}>Reel Rate / Kg</label>
+                            <input className={styles.inputField} type="number" name="reelRate" value={data.reelRate} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
                             <label className={styles.label}>Width (mm)</label>
@@ -354,15 +343,46 @@ export default function ProfessionalEstimation() {
                             <input className={styles.inputField} type="number" name="height" value={data.height} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Handle GSM</label>
-                            <input className={styles.inputField} type="number" name="handleGsm" value={data.handleGsm} onChange={handleChange} />
+                            <label className={styles.label}>Bottom Fold (mm)</label>
+                            <input className={styles.inputField} type="number" name="bottomFold" value={data.bottomFold} onChange={handleChange} />
                         </div>
+                        <div className={styles.inputGroup}>
+                            <label className={styles.label}>Top Fold (mm)</label>
+                            <input className={styles.inputField} type="number" name="topFoldMm" value={data.topFoldMm} onChange={handleChange} />
+                        </div>
+                        <div className={styles.inputGroup}>
+                            <label className={styles.label}>Handle Type</label>
+                            <select className={styles.inputField} name="handleType" value={data.handleType} onChange={handleChange}>
+                                <option value="None">None</option>
+                                <option value="Twisted">Twisted Paper</option>
+                                <option value="Flat">Flat Paper</option>
+                                <option value="D-Cut">D-Cut</option>
+                            </select>
+                        </div>
+                        {data.handleType !== 'None' && (
+                            <>
+                                <div className={styles.inputGroup}>
+                                    <label className={styles.label}>Handle Cost / Pc</label>
+                                    <input className={styles.inputField} type="number" name="handleCostPerPc" value={data.handleCostPerPc} onChange={handleChange} />
+                                </div>
+                                <div className={styles.inputGroup}>
+                                    <label className={styles.label}>Patch Req.</label>
+                                    <select className={styles.inputField} name="patchRequired" value={data.patchRequired} onChange={handleChange}>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                            </>
+                        )}
                     </div>
                     <div className={styles.advisoryBox}>
-                        <div className={styles.advisoryTitle}><Zap size={10} /> ENGINEERING VERDICT</div>
+                        <div className={styles.advisoryTitle}><Zap size={10} /> ENGINEERING SPECIFICATIONS</div>
                         <div className={styles.advisoryContent}>
-                            <span className={styles.statBadge}>VOL: {(data.width * data.gusset * data.height / 1000000).toFixed(1)}L</span>
-                            Structural integrity verified for {data.gsm}gsm. {data.coating !== 'None' ? 'Premium finish selected, machine speed should be reduced by 10%.' : 'Natural finish allows high-speed run.'}
+                            <div style={{ display: 'flex', gap: '1rem', marginBottom: '4px' }}>
+                                <span className={styles.statBadge}>DEV WIDTH: {calcs.devWidth}mm</span>
+                                <span className={styles.statBadge}>DEV LENGTH: {calcs.devLength}mm</span>
+                            </div>
+                            Calculated Area: <span style={{ fontWeight: 800 }}>{(calcs.devWidth * calcs.devLength / 1000000).toFixed(3)} sqm</span>. Standard reel width recommended: {Math.ceil(calcs.devWidth / 10) * 10}mm.
                         </div>
                     </div>
                 </>
@@ -378,25 +398,41 @@ export default function ProfessionalEstimation() {
                             <input className={styles.inputField} type="number" name="orderQty" value={data.orderQty} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Wastage (%)</label>
+                            <label className={styles.label}>Wastage %</label>
                             <input className={styles.inputField} type="number" name="wastagePercent" value={data.wastagePercent} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Packing Type</label>
-                            <select className={styles.inputField} name="packingType" value={data.packingType} onChange={handleChange}>
-                                <option value="Bundle">Bundle Wrap</option>
-                                <option value="Carton">Corrugated Box</option>
-                                <option value="Pallet">Palletization</option>
-                            </select>
+                            <label className={styles.label}>Extra Qty %</label>
+                            <input className={styles.inputField} type="number" name="extraQtyPercent" value={data.extraQtyPercent} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Pcs / Unit</label>
-                            <input className={styles.inputField} type="number" name="pcsPerBundle" value={data.pcsPerBundle} onChange={handleChange} />
+                            <label className={styles.label}>Bags / Carton</label>
+                            <input className={styles.inputField} type="number" name="bagsPerCarton" value={data.bagsPerCarton} onChange={handleChange} />
                         </div>
-                        {data.customerType === 'Export' ? (
+                        <div className={styles.inputGroup}>
+                            <label className={styles.label}>Carton L (mm)</label>
+                            <input className={styles.inputField} type="number" name="cartonL" value={data.cartonL} onChange={handleChange} />
+                        </div>
+                        <div className={styles.inputGroup}>
+                            <label className={styles.label}>Carton W (mm)</label>
+                            <input className={styles.inputField} type="number" name="cartonW" value={data.cartonW} onChange={handleChange} />
+                        </div>
+                        <div className={styles.inputGroup}>
+                            <label className={styles.label}>Carton H (mm)</label>
+                            <input className={styles.inputField} type="number" name="cartonH" value={data.cartonH} onChange={handleChange} />
+                        </div>
+                        <div className={styles.inputGroup}>
+                            <label className={styles.label}>Container Type</label>
+                            <select className={styles.inputField} name="containerType" value={data.containerType} onChange={handleChange}>
+                                <option value="20ft">20ft FCL</option>
+                                <option value="40ft">40ft FCL</option>
+                                <option value="LCL">LCL Cargo</option>
+                            </select>
+                        </div>
+                        {data.customerType === 'Export' && (
                             <>
                                 <div className={styles.inputGroup}>
-                                    <label className={styles.label}>Ocean/Air Freight</label>
+                                    <label className={styles.label}>Freight Cost</label>
                                     <input className={styles.inputField} type="number" name="freightCost" value={data.freightCost} onChange={handleChange} />
                                 </div>
                                 <div className={styles.inputGroup}>
@@ -412,97 +448,103 @@ export default function ProfessionalEstimation() {
                                     <input className={styles.inputField} type="number" name="containerCost" value={data.containerCost} onChange={handleChange} />
                                 </div>
                             </>
-                        ) : (
-                            <div className={styles.inputGroup}>
-                                <label className={styles.label}>Carton Type</label>
-                                <select className={styles.inputField} name="cartonType" value={data.cartonType} onChange={handleChange}>
-                                    <option value="3 Ply">3 Ply Standard</option>
-                                    <option value="5 Ply">5 Ply Heavy Duty</option>
-                                </select>
-                            </div>
                         )}
                     </div>
                     <div className={styles.advisoryBox}>
                         <div className={styles.advisoryTitle}><Calculator size={10} /> LOGISTICS ANALYTICS</div>
                         <div className={styles.advisoryContent}>
-                            <span className={styles.statBadge}>TOT WT: {((calcs.weight * data.orderQty) / 1000).toFixed(0)} KG</span>
-                            Estimated volume: <span style={{ fontWeight: 700 }}>{(data.orderQty / data.pcsPerBundle).toFixed(0)} units</span> to be packed. {data.customerType === 'Export' ? 'Recommended container: 20ft FCL.' : 'Recommended vehicle: 14ft Truck.'}
+                            <div style={{ display: 'flex', gap: '1rem', marginBottom: '4px' }}>
+                                <span className={styles.statBadge}>PROD QTY: {calcs.finalProdQty.toLocaleString()}</span>
+                                <span className={styles.statBadge}>TOT WT: {(calcs.paperKg).toFixed(0)} KG</span>
+                            </div>
+                            Shipping Units: <span style={{ fontWeight: 700 }}>{(calcs.finalProdQty / data.bagsPerCarton).toFixed(0)} Cartons</span>.
+                            Estimated CBM: <span style={{ fontWeight: 700 }}>{((data.cartonL * data.cartonW * data.cartonH / 1000000000) * (calcs.finalProdQty / data.bagsPerCarton)).toFixed(2)}</span>.
                         </div>
                     </div>
                 </>
             )
         },
         {
-            title: "Direct Material",
+            title: "Material & Printing",
             content: (
                 <>
                     <div className={styles.formGrid}>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Paper Rate (Ex-Mill)</label>
-                            <input className={styles.inputField} type="number" name="paperRate" value={data.paperRate} onChange={handleChange} />
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>Glue Type</label>
-                            <select className={styles.inputField} name="glueType" value={data.glueType} onChange={handleChange}>
-                                <option value="Hotmelt">Hotmelt (High Speed)</option>
-                                <option value="WaterBased">Water Based (Eco)</option>
+                            <label className={styles.label}>Printing Required</label>
+                            <select className={styles.inputField} name="printing" value={data.printing} onChange={handleChange}>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
                             </select>
                         </div>
+                        {data.printing === 'Yes' && (
+                            <>
+                                <div className={styles.inputGroup}>
+                                    <label className={styles.label}>No. of Colors</label>
+                                    <input className={styles.inputField} type="number" name="inkColors" value={data.inkColors} onChange={handleChange} />
+                                </div>
+                                <div className={styles.inputGroup}>
+                                    <label className={styles.label}>Coverage</label>
+                                    <select className={styles.inputField} name="coverageType" value={data.coverageType} onChange={handleChange}>
+                                        <option value="Partial">Partial / Text</option>
+                                        <option value="Full">Full / Solid</option>
+                                    </select>
+                                </div>
+                                <div className={styles.inputGroup}>
+                                    <label className={styles.label}>Plate Cost / Col</label>
+                                    <input className={styles.inputField} type="number" name="plateCostPerColor" value={data.plateCostPerColor} onChange={handleChange} />
+                                </div>
+                                <div className={styles.inputGroup}>
+                                    <label className={styles.label}>Setup Cost</label>
+                                    <input className={styles.inputField} type="number" name="printingSetupCost" value={data.printingSetupCost} onChange={handleChange} />
+                                </div>
+                                <div className={styles.inputGroup}>
+                                    <label className={styles.label}>Ink Rate / Kg</label>
+                                    <input className={styles.inputField} type="number" name="inkRate" value={data.inkRate} onChange={handleChange} />
+                                </div>
+                            </>
+                        )}
                         <div className={styles.inputGroup}>
                             <label className={styles.label}>Glue Usage (g/pc)</label>
                             <input className={styles.inputField} type="number" name="glueUsage" value={data.glueUsage} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Glue Rate / KG</label>
+                            <label className={styles.label}>Glue Rate / Kg</label>
                             <input className={styles.inputField} type="number" name="glueRate" value={data.glueRate} onChange={handleChange} />
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>Handle Style</label>
-                            <select className={`${styles.inputField} ${styles.selectField}`} name="handleType" value={data.handleType} onChange={handleChange}>
-                                <option value="None">No Handle</option>
-                                <option value="Twisted">Twisted Paper</option>
-                                <option value="Flat">Flat Paper</option>
-                                <option value="Cotton">Cotton Rope</option>
-                            </select>
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>Handle Rate / Pair</label>
-                            <input className={styles.inputField} type="number" name="handleCostPerPc" value={data.handleCostPerPc} onChange={handleChange} />
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>Plate / Block Cost</label>
-                            <input className={styles.inputField} type="number" name="plateCostPerColor" value={data.plateCostPerColor} onChange={handleChange} />
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>Ink Rate / KG</label>
-                            <input className={styles.inputField} type="number" name="inkRate" value={data.inkRate} onChange={handleChange} />
                         </div>
                     </div>
                     <div className={styles.advisoryBox}>
                         <div className={styles.advisoryTitle}><ShoppingBag size={10} /> PROCUREMENT FEED</div>
                         <div className={styles.advisoryContent}>
-                            <span className={styles.statBadge}>PAPER: {data.paperRate}/KG</span>
-                            Market average for {data.paperType} is currently ₹65-72. Glue consumption is within 5% of standard recipe.
+                            <span className={styles.statBadge}>PLATES: ₹{(data.plateCostPerColor * data.inkColors).toLocaleString()}</span>
+                            Printing setup cost of ₹{data.printingSetupCost} is standard for {data.inkColors} colors. {data.coverageType === 'Full' ? 'High ink consumption expected.' : 'Standard ink consumption applied.'}
                         </div>
                     </div>
                 </>
             )
         },
         {
-            title: "Process Parameters",
+            title: "Production & Margin",
             content: (
                 <>
                     <div className={styles.formGrid}>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Running Speed (Bpm)</label>
+                            <label className={styles.label}>Machine Type</label>
+                            <select className={styles.inputField} name="machineType" value={data.machineType} onChange={handleChange}>
+                                <option value="Automatic SOS">Automatic SOS</option>
+                                <option value="Semi Auto">Semi-Automatic</option>
+                                <option value="Manual">Manual Finishing</option>
+                            </select>
+                        </div>
+                        <div className={styles.inputGroup}>
+                            <label className={styles.label}>Speed (Bpm)</label>
                             <input className={styles.inputField} type="number" name="machineSpeed" value={data.machineSpeed} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Setup Time (Min)</label>
-                            <input className={styles.inputField} type="number" name="setupTime" value={data.setupTime} onChange={handleChange} />
+                            <label className={styles.label}>Changeover (Min)</label>
+                            <input className={styles.inputField} type="number" name="changeoverTime" value={data.changeoverTime} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>M/c Hour Rate</label>
+                            <label className={styles.label}>M/c Hr Rate</label>
                             <input className={styles.inputField} type="number" name="machineHourRate" value={data.machineHourRate} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
@@ -514,23 +556,26 @@ export default function ProfessionalEstimation() {
                             <input className={styles.inputField} type="number" name="labourCostPerHour" value={data.labourCostPerHour} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Target Margin (%)</label>
-                            <input className={styles.inputField} type="number" name="marginPercent" value={data.marginPercent} onChange={handleChange} />
+                            <label className={styles.label}>Factory OH %</label>
+                            <input className={styles.inputField} type="number" name="factoryOverheadPercent" value={data.factoryOverheadPercent} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Admin OH (%)</label>
+                            <label className={styles.label}>Admin OH %</label>
                             <input className={styles.inputField} type="number" name="adminOverheadPercent" value={data.adminOverheadPercent} onChange={handleChange} />
                         </div>
                         <div className={styles.inputGroup}>
-                            <label className={styles.label}>Factory OH (%)</label>
-                            <input className={styles.inputField} type="number" name="factoryOverheadPercent" value={data.factoryOverheadPercent} onChange={handleChange} />
+                            <label className={styles.label}>Margin %</label>
+                            <input className={styles.inputField} type="number" name="marginPercent" value={data.marginPercent} onChange={handleChange} />
                         </div>
                     </div>
                     <div className={styles.advisoryBox}>
                         <div className={styles.advisoryTitle}><TrendingUp size={10} /> PRODUCTION FORECAST</div>
                         <div className={styles.advisoryContent}>
-                            <span className={styles.statBadge}>PROD TIME: {calcs.prodTimeHours.toFixed(1)}H</span>
-                            Total production including setup: <span style={{ fontWeight: 700 }}>{(calcs.prodTimeHours + data.setupTime / 60).toFixed(1)} hours</span>. Efficiency rated at 92%.
+                            <div style={{ display: 'flex', gap: '1rem', marginBottom: '4px' }}>
+                                <span className={styles.statBadge}>RUN TIME: {calcs.prodTimeHours.toFixed(1)}H</span>
+                                <span className={styles.statBadge}>NET COST: {data.currency} {calcs.costPerBag.toFixed(2)}</span>
+                            </div>
+                            Total setup & run: <span style={{ fontWeight: 700 }}>{(calcs.prodTimeHours).toFixed(1)} hours</span>. Efficiency rated at 92%. Profit on order: <span style={{ color: 'var(--secondary)', fontWeight: 800 }}>{data.currency} {calcs.totalProfit.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>.
                         </div>
                     </div>
                 </>
@@ -548,12 +593,12 @@ export default function ProfessionalEstimation() {
                                 <span className={styles.rowValue}>{data.customerName || 'N/A'}</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <span className={styles.rowLabel}>Lead Time:</span>
-                                <span className={styles.rowValue}>{data.leadTime}</span>
+                                <span className={styles.rowLabel}>Sales Person:</span>
+                                <span className={styles.rowValue}>{data.salesPerson}</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <span className={styles.rowLabel}>Terms:</span>
-                                <span className={styles.rowValue}>{data.paymentTerms}</span>
+                                <span className={styles.rowLabel}>Currency:</span>
+                                <span className={styles.rowValue}>{data.currency}</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '4px', paddingTop: '4px', borderTop: `1px solid var(--border)` }}>
                                 <span className={styles.rowLabel}>Order Qty:</span>
@@ -570,16 +615,16 @@ export default function ProfessionalEstimation() {
                                 <div className={styles.rowValue}>{data.width}x{data.gusset}x{data.height}</div>
                             </div>
                             <div>
+                                <div className={styles.rowLabel}>Developed</div>
+                                <div className={styles.rowValue}>{calcs.devWidth}x{calcs.devLength}</div>
+                            </div>
+                            <div>
                                 <div className={styles.rowLabel}>Paper/GSM</div>
                                 <div className={styles.rowValue}>{data.gsm}G {data.paperType}</div>
                             </div>
                             <div>
                                 <div className={styles.rowLabel}>Printing</div>
                                 <div className={styles.rowValue}>{data.inkColors} Colors</div>
-                            </div>
-                            <div>
-                                <div className={styles.rowLabel}>Unit Wt</div>
-                                <div className={styles.rowValue}>{calcs.weight.toFixed(1)}g</div>
                             </div>
                         </div>
                     </div>
@@ -588,29 +633,48 @@ export default function ProfessionalEstimation() {
                         <h3 className={styles.reportTitle}><Calculator size={12} style={{ marginRight: '6px' }} /> COST BREAKDOWN</h3>
                         <div style={{ display: 'grid', gap: '0.3rem' }}>
                             {[
-                                { l: 'Paper', v: calcs.costs.paper },
-                                { l: 'Glue/Handles', v: calcs.costs.glue + calcs.costs.handle },
-                                { l: 'Print', v: calcs.costs.printing },
-                                { l: 'M/c & Lab.', v: calcs.costs.machine + calcs.costs.labour },
-                                { l: 'Overheads', v: calcs.costs.overhead }
+                                { l: 'Paper Cost', v: calcs.costs.paper },
+                                { l: 'Adhesive & Trims', v: calcs.costs.glue + calcs.costs.handle },
+                                { l: 'Printing/Plates', v: calcs.costs.printing },
+                                { l: 'Conversion Cost', v: calcs.costs.machine + calcs.costs.labour },
+                                { l: 'Total Overheads', v: calcs.costs.overhead }
                             ].map((row, idx) => (
                                 <div key={idx} style={{ display: 'flex', justifyContent: 'space-between' }}>
                                     <span className={styles.rowLabel}>{row.l}</span>
-                                    <span className={styles.rowValue}>₹{row.v.toLocaleString()}</span>
+                                    <span className={styles.rowValue}>{data.currency} {row.v.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    <div className={styles.reportSummaryBanner}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <div>
-                                <div className={styles.mainPriceLabel}>AI PROJECTED COST / PC</div>
-                                <div className={styles.mainPriceValue}>₹{calcs.costPerBag.toFixed(2)}</div>
+                    <div style={{ gridColumn: 'span 3', display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem' }}>
+                        <div className={styles.reportSummaryBanner} style={{ margin: 0 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div>
+                                    <div className={styles.mainPriceLabel}>AI PROJECTED COST / PC</div>
+                                    <div className={styles.mainPriceValue}>{data.currency} {calcs.costPerBag.toFixed(2)}</div>
+                                </div>
+                                <div style={{ textAlign: 'right' }}>
+                                    <div className={styles.mainPriceLabel}>TARGET SELLING PRICE</div>
+                                    <div className={styles.mainPriceValue} style={{ color: 'var(--secondary)' }}>{data.currency} {calcs.targetSP.toFixed(2)}</div>
+                                </div>
                             </div>
-                            <div style={{ textAlign: 'right' }}>
-                                <div className={styles.mainPriceLabel}>TARGET QUOTATION SP</div>
-                                <div className={styles.mainPriceValue} style={{ color: 'var(--secondary)' }}>₹{calcs.targetSP.toFixed(2)}</div>
+                        </div>
+
+                        <div className={styles.advisoryBox} style={{ margin: 0, padding: '0.75rem' }}>
+                            <div className={styles.advisoryTitle}><Zap size={10} /> AI VALIDATION ALERTS</div>
+                            <div className={styles.advisoryContent} style={{ fontSize: '0.65rem' }}>
+                                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                                    <li style={{ color: calcs.marginOnRevenue < 15 ? 'var(--danger)' : 'var(--secondary)', marginBottom: '2px' }}>
+                                        • {calcs.marginOnRevenue < 15 ? "Low Margin (Critical)" : "Margin Healthy"}
+                                    </li>
+                                    <li style={{ marginBottom: '2px' }}>
+                                        • {data.gsm > 150 ? "High GSM (Check machine compatibility)" : "GSM Optimal"}
+                                    </li>
+                                    <li>
+                                        • {data.coverageType === 'Full' ? "High Ink (Verify Drying Time)" : "Ink: Partial Coverage"}
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -727,15 +791,29 @@ export default function ProfessionalEstimation() {
                                                 <div
                                                     className={styles.bagMockup}
                                                     style={{
-                                                        width: `${data.width / 2.5}px`,
-                                                        height: `${data.height / 2.5}px`,
-                                                        backgroundColor: data.paperType.includes('Kraft') ? '#d97706' : '#f8fafc'
+                                                        width: `${Math.min(data.width / 3, 140)}px`,
+                                                        height: `${Math.min(data.height / 3, 160)}px`,
+                                                        backgroundColor: data.paperType.toLowerCase().includes('brown') || data.paperType.toLowerCase().includes('kraft') ? '#d4a373' : '#f8f9fa'
                                                     }}
                                                 >
+                                                    {/* Handles */}
+                                                    {data.handleType !== 'None' && (
+                                                        <div className={`${styles.handleLeft} ${data.handleType === 'Twisted' ? styles.handleTwisted : styles.handleFlat}`} />
+                                                    )}
+
                                                     <div className={styles.bagFront}>
-                                                        <span style={{ fontSize: '7px', color: 'rgba(0,0,0,0.3)', fontWeight: 900 }}>{data.printing === 'Yes' ? 'LOGO PRINT' : ''}</span>
+                                                        {data.printing === 'Yes' && (
+                                                            <div style={{ border: '1px dashed rgba(0,0,0,0.2)', padding: '4px', borderRadius: '4px', textAlign: 'center' }}>
+                                                                <div style={{ fontSize: '8px', fontWeight: 900, opacity: 0.4 }}>BRAND</div>
+                                                                <div style={{ fontSize: '5px', opacity: 0.3 }}>{data.inkColors} COLORS</div>
+                                                            </div>
+                                                        )}
+                                                        <div style={{ position: 'absolute', bottom: '10px', right: '10px', fontSize: '6px', opacity: 0.4, fontWeight: 700 }}>
+                                                            {data.width}x{data.height}
+                                                        </div>
+                                                        <div className={styles.bagBottomFold} />
                                                     </div>
-                                                    <div className={styles.bagGusset} style={{ width: `${data.gusset / 2.5}px` }} />
+                                                    <div className={styles.bagGusset} style={{ width: `${Math.min(data.gusset / 3, 40)}px` }} />
                                                 </div>
                                             </div>
                                         </div>
